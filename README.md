@@ -1,4 +1,4 @@
-# aigen
+# aischema
 
 > AI Yup Schema Examples Generator
 
@@ -11,7 +11,7 @@
 ```ts
 import yup from 'yup'
 import zod from 'zod'
-import { generate } from 'aigen'
+import { generate } from 'aischema'
 
 // Set your OpenAI Key
 process.env.OPENAI_KEY = '...'

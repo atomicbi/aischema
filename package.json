@@ -1,12 +1,12 @@
 {
-  "name": "aigen",
+  "name": "aischema",
   "version": "1.0.0",
   "description": "AI Yup Schema Examples Generator",
   "author": "Tobias Strebitzer <tobias.strebitzer@magloft.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/atomicbi/aigen.git"
+    "url": "git+ssh://git@github.com/atomicbi/aischema.git"
   },
   "type": "module",
   "module": "build/index.js",
