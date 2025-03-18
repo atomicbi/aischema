@@ -9,6 +9,18 @@
 ## Usage
 
 ```ts
+const result = await generate(object, options)
+```
+
+* `object`: a Yup, Zod or JSON Schema object
+* `options`: optional
+  * `description`: The system prompt. Default: schema "description"
+  * `modelId`: The OpenAI . Default: `gpt-4o-mini`
+  * `structuredOutputs`: boolean, whether to force structured output
+
+## Example
+
+```ts
 import yup from 'yup'
 import zod from 'zod'
 import { generate } from 'aischema'
