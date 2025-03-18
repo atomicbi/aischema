@@ -1,0 +1,11 @@
+.vscode/
+src/
+examples/
+fixtures/
+eslint.config.mjs
+.eslintignore
+.eslintrc
+.env
+.env.dist
+tsconfig.json
+tsup.config.ts

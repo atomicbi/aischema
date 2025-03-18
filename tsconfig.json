@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "noEmit": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*", "examples/**/*", "examples"]
+}

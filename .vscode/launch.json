@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "example",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "node",
+    "runtimeArgs": ["--import", "tsx/esm"],
+    "args": ["${workspaceRoot}/examples/example.ts"]
+  }]
+}
