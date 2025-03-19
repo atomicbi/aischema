@@ -1,63 +1,54 @@
 # aischema
 
-> AI Yup Schema Examples Generator
+> AI Zod Schema Examples Generator
 
-* Supports `yup`, `zod` and `Json Schema`
-* Generates example objects using OpenAI gpt-4o-mini
-* Supports the `description` field for tailored prompt instructions per field
+* This tool will generate structured output through OpenAI given a `zod` schema.
+* OpenAI Structure Output has several limitations on structured output:
+  * Many zod validation rules are not supported, and will result in an error (e.g. `min`, `minLength`, `includes`, etc...).
+  * Top-level arrays are not supported (only object).
+* aischema solves this by converting your Zod structure to a OpenAI-compatible format:
+  * Top-level arrays are supported. Under the hood, aischema will create a temporary top-level object.
+  * Unsupported validation rules are converted into natural-language instructions (for each property).
+  * You can provide a `description` (using zod `describe`) for each property.
+* Option: You can choose any OpenAI model that supports structured output.
+* Option: You can provide a custom prompt to give general instructions on what the AI should generate.
 
 ## Usage
 
 ```ts
-const result = await generate(object, options)
+const result = await generate(schema, options)
 ```
 
-* `object`: a Yup, Zod or JSON Schema object
+* `schema`: a Zod schema
 * `options`: optional
-  * `description`: The system prompt. Default: schema "description"
-  * `modelId`: The OpenAI . Default: `gpt-4o-mini`
-  * `structuredOutputs`: boolean, whether to force structured output
+  * `prompy`: The system prompt. Default: schema "description"
+  * `model`: The OpenAI model. Default: `gpt-4o-mini`
 
 ## Example
 
 ```ts
-import yup from 'yup'
-import zod from 'zod'
+import z from 'zod'
 import { generate } from 'aischema'
 
 // Set your OpenAI Key
 process.env.OPENAI_KEY = '...'
 
 async function main() {
-  // Zod Schema
-  const zodResult = await generate(zod.object({
-    name: zod.string().describe('An elvish name'),
-    age: zod.number().int().describe('Their age')
-  }).describe('Generate a fantasy character'))
-  console.info('zodResult', zodResult)
+  // Generate 5 heroes
+  const heroes = await generate(z.array(z.object({
+    name: z.string().endsWith('Alpha').describe('The firstname and lastname of the hero'),
+    age: z.number().int().min(10).max(250).gte(10).describe('The age of the hero, must be a prime number'),
+    race: z.enum(['Elf', 'Dwarf', 'Orc', 'Human']).describe('The race of the hero'),
+    class: z.enum(['Warrior', 'Druid', 'Mage']).describe('The class of the hero'),
+    blessed: z.boolean().describe('Whether the hero has received the blessing of the ancients'),
+    inventory: z.array(z.object({
+      name: z.string().describe('The name of the inventory item'),
+      qty: z.string().min(1).max(20).describe('The quantity of the inventory item')
+    }).describe('A fantasy inventory item')).min(5).describe('The inventory of the hero. Elves should always have arrows')
+  })).min(5).describe('A group of fantasy role playing hero characters'))
 
-  // Yup Schema
-  const yupResult = await generate(yup.object({
-    name: yup.string().description('An elvish name').required(),
-    age: yup.number().integer().description('Their age').required()
-  }).description('Generate a fantasy character'))
-  console.info('yupResult', yupResult)
-
-  // JSON Schema
-  const jsonResult = await generate({
-    '$id': 'https://schema.atomicbi/person.schema.json',
-    '$schema': 'https://json-schema.org/draft-07/schema',
-    'title': 'Person',
-    'type': 'object',
-    'description': 'A random american person',
-    'properties': {
-      'firstName': { 'type': 'string', 'description': 'The person\'s first name.' },
-      'lastName': { 'type': 'string', 'description': 'The person\'s last name.' },
-      'age': { 'description': 'Age in years which must be equal to or greater than zero.', 'type': 'integer' }
-    },
-    'required': ['firstName', 'lastName', 'age']
-  })
-  console.info('jsonResult', jsonResult)
+  // Print result
+  console.info('heroes', heroes)
 }
 
 main()

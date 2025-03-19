@@ -1,7 +1,7 @@
 {
   "name": "aischema",
-  "version": "1.0.1",
-  "description": "AI Yup Schema Examples Generator",
+  "version": "1.0.2",
+  "description": "AI Zod Schema Examples Generator",
   "author": "Tobias Strebitzer <tobias.strebitzer@magloft.com>",
   "license": "MIT",
   "repository": {
@@ -22,12 +22,8 @@
     "lint": "eslint 'src/**/*.ts' && tsc --noEmit"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.2.5",
-    "@n8n/json-schema-to-zod": "^1.1.0",
-    "@sodaru/yup-to-json-schema": "^2.0.1",
-    "ai": "^4.1.61",
     "json-schema": "^0.4.0",
-    "yup": "^1.4.0",
+    "openai": "^4.87.4",
     "zod": "^3.24.2"
   },
   "devDependencies": {

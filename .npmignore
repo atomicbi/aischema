@@ -1,7 +1,6 @@
 .vscode/
 src/
 examples/
-fixtures/
 eslint.config.mjs
 .eslintignore
 .eslintrc
