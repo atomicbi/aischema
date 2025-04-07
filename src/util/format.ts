@@ -4,7 +4,7 @@ export type FormatSchemaFn = (value: JSONSchema7, parts: string[]) => void
 
 function extract<K extends keyof JSONSchema7>(property: JSONSchema7, parts: string[], key: K, fn: (value: NonNullable<JSONSchema7[K]>) => string | undefined) {
   if (!(key in property) || property[key] == null) { return }
-  const part = fn(property[key])
+  const part = fn(property[key]!)
   if (part != null) { parts.push(part) }
   delete property[key]
 }
