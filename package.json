@@ -1,6 +1,6 @@
 {
   "name": "aischema",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "AI Zod Schema Examples Generator",
   "author": "Tobias Strebitzer <tobias.strebitzer@magloft.com>",
   "license": "MIT",
