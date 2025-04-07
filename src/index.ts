@@ -1,15 +1,28 @@
-import z from 'zod'
-import { generateArray, generateObject, GenerateOptions } from './util/generate'
+import { SchemaGenerator, SchemaGeneratorOptions } from './classes/SchemaGenerator'
+import { SchemaJobOptions } from './classes/SchemaJob'
 
-export { GenerateOptions }
+export * from './classes/SchemaGenerator'
+export * from './classes/SchemaJob'
+export * from './util/concurrent'
 
-export async function generate<T extends object>(schema: z.ZodType<T>, options: GenerateOptions = {}): Promise<T> {
-  const def = schema._def as { typeName: 'ZodArray' | 'ZodObject' }
-  if (def.typeName === 'ZodObject') {
-    return generateObject(schema, options)
-  } else if (def.typeName === 'ZodArray') {
-    return generateArray(schema, options)
-  } else {
-    throw new Error('Invalid Schema')
-  }
+export async function run<T extends object>(job: SchemaJobOptions<T>, options: SchemaGeneratorOptions = {}) {
+  return SchemaGenerator.run<T>(job, options)
 }
+
+export async function all<T extends object>(jobs: SchemaJobOptions<T>[], options: SchemaGeneratorOptions = {}) {
+  return SchemaGenerator.all<T>(jobs, options)
+}
+
+export async function concurrent<T extends object>(jobs: SchemaJobOptions<T>[], options: SchemaGeneratorOptions & { concurrency?: number } = {}) {
+  return SchemaGenerator.concurrent<T>(jobs, options)
+}
+
+export async function batch<T extends object>(name: string, jobs: SchemaJobOptions<T>[], options: SchemaGeneratorOptions = {}) {
+  return SchemaGenerator.batch<T>(name, jobs, options)
+}
+
+export async function batchStatus<T extends object>(batchId: string, options: SchemaGeneratorOptions = {}) {
+  return SchemaGenerator.batchStatus<T>(batchId, options)
+}
+
+export default SchemaGenerator

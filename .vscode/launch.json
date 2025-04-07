@@ -1,11 +1,32 @@
 {
   "version": "0.2.0",
   "configurations": [{
-    "name": "example",
+    "name": "example:run",
     "type": "node",
     "request": "launch",
     "runtimeExecutable": "node",
     "runtimeArgs": ["--import", "tsx/esm"],
-    "args": ["${workspaceRoot}/examples/example.ts"]
+    "args": ["${workspaceRoot}/examples/run.ts"]
+  }, {
+    "name": "example:all",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "node",
+    "runtimeArgs": ["--import", "tsx/esm"],
+    "args": ["${workspaceRoot}/examples/all.ts"]
+  }, {
+    "name": "example:concurrent",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "node",
+    "runtimeArgs": ["--import", "tsx/esm"],
+    "args": ["${workspaceRoot}/examples/concurrent.ts"]
+  }, {
+    "name": "example:batch",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "node",
+    "runtimeArgs": ["--import", "tsx/esm"],
+    "args": ["${workspaceRoot}/examples/batch.ts"]
   }]
 }
